@@ -1,17 +1,14 @@
-[
-    {
-        "Name": "Ivan",
+{
+    "Ivan": {
         "Age": "19",
         "City": "Sumy"
     },
-    {
-        "Name": "Dima",
+    "Dima": {
         "Age": "18",
         "City": "Lutsk"
     },
-    {
-        "Name": "Mark",
+    "Mark": {
         "Age": "21",
         "City": "Lviv"
     }
-]
+}

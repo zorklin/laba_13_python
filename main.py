@@ -8,22 +8,22 @@ def write_to_csv(data, file_name):
             input_data.writeheader()
             input_data.writerows(data)
     except IOError as err:
-        print(f"err with file: {err}")
+        print(f"error with file: {err}")
     except Exception as err:
-        print(f"err: {err}")
+        print(f"error: {err}")
 
 def convert_csv_to_json(csv_file, json_file):
     try:
         with open(csv_file, mode = 'r') as file:
             output_data = csv.DictReader(file)
-            rows = [row for row in output_data]
+            rows = {row["Name"]: {"Age": row["Age"], "City": row["City"]} for row in output_data}
 
         with open(json_file, mode = 'w') as file:
             json.dump(rows, file, indent = 4)
     except IOError as err:
-        print(f"err with file: {err}")
+        print(f"Error with file: {err}")
     except Exception as err:
-        print(f"err: {err}")
+        print(f"Error: {err}")
 
 dictionary_data = [
     {"Name": "Ivan", "Age": 19, "City": "Sumy"},
