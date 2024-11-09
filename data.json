@@ -10,5 +10,17 @@
     "Mark": {
         "Age": "21",
         "City": "Lviv"
+    },
+    "Dmitro": {
+        "Age": "21",
+        "City": "Dnipro"
+    },
+    "Alex": {
+        "Age": "19",
+        "City": "Kyiv"
+    },
+    "Petro": {
+        "Age": "23",
+        "City": "Kharkiv"
     }
 }
