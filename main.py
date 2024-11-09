@@ -51,6 +51,39 @@ def convert_json_csv(data, f_json, f_csv):
         print(f"err: {err}")
 
 
+# Функція читання файлу csv та перезапису його у json з додаванням даних - Плутенко Олексій
+def convert_csv_to_json_Plutenko(csv_file, json_file):
+    try:
+        with open(csv_file, mode = 'r', encoding='utf-8') as file:
+            output_data = csv.DictReader(file)
+            rows = {row["Name"]: {"Age": row["Age"], "City": row["City"]} for row in output_data}
+    except IOError as e:
+        print(f"Помилка при обробці {csv_file}: {e}")
+    except Exception as e:
+        print(f"Помилка при обробці {csv_file}: {e}")
+
+    while True:
+        temp = input("Додати користувачів?\n1 - Так\n0 - Ні\n")
+        if temp == '1':
+            Name = input("Введіть ім'я особи: ")
+            Age = input("Введіть вік особи: ")
+            City = input("Введіть місто, в якому проживає особа: ")
+            rows[Name] = {"Age": Age, "City": City}
+        elif temp == '0':
+            break
+        else:
+            print("Невірний вибір, спробуйте ще раз.")
+
+    try:
+        with open(json_file, mode = 'w', encoding='utf-8') as file:
+            json.dump(rows, file, ensure_ascii=False, indent=4)
+    except IOError as e:
+        print(f"Помилка при обробці {json_file}: {e}")
+    except Exception as e:
+        print(f"Помилка при обробці {json_file}: {e}")
+
+
+
 dictionary_data = [
     {"Name": "Ivan", "Age": 19, "City": "Sumy"},
     {"Name": "Dima", "Age": 18, "City": "Lutsk"},
@@ -63,3 +96,4 @@ json_name = 'data.json'
 write_to_csv(dictionary_data, csv_name)
 convert_csv_to_json(csv_name, json_name)
 convert_json_csv(dictionary_data ,json_name,csv_name)
+convert_csv_to_json_Plutenko(csv_name, json_name)
