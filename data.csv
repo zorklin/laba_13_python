@@ -1,5 +1,4 @@
-Name,Age,City
-Ivan,19,Sumy
-Dima,18,Lutsk
-Mark,21,Lviv
-Dmitro,21,Dnipro
+Age,City,Name
+19,Sumy,Ivan
+18,Lutsk,Dima
+21,Lviv,Mark

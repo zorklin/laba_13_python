@@ -82,6 +82,28 @@ def convert_csv_to_json_Plutenko(csv_file, json_file):
     except Exception as e:
         print(f"Помилка при обробці {json_file}: {e}")
 
+# Функція читає .json файл та конвертує вміст у .csv файл - Попов Максим
+def convert_json_csv_Popov(jname, cname):
+    try:
+        with open(jname, "r") as jfile:
+            jdata = json.load(jfile)
+            jlist = []
+            for name in jdata.keys():
+                jdata[name]["Name"] = name
+                jlist.append(jdata[name])
+            print(jlist)
+
+    except:
+        print("Файл {} не вдалося відкрити".format(jname))
+    try:
+        with open(cname, "w") as cfile:
+            cdata = csv.DictWriter(cfile, fieldnames=jlist[0].keys())
+            cdata.writeheader()
+            cdata.writerows(jlist)
+            print("Дані переписані")
+    except IOError:
+        print("Файл {} не вдалося відкрити".format(cname))
+
 
 
 dictionary_data = [
@@ -93,7 +115,27 @@ dictionary_data = [
 csv_name = 'data.csv'
 json_name = 'data.json'
 
-write_to_csv(dictionary_data, csv_name)
-convert_csv_to_json(csv_name, json_name)
-convert_json_csv(dictionary_data ,json_name,csv_name)
-convert_csv_to_json_Plutenko(csv_name, json_name)
+commands = "1. Записати заготовлені дані до .csv файлу\n\
+2. Переписати вміст .csv файлу в .json файл\n\
+3. Переписати вміст .json файлу в .csv файл з додаванням даних\n\
+4. Переписати вміст .csv файлу в .json файл з додаванням даних\n\
+5. Переписати вміст .json файлу в .csv файл"
+
+print("Доступні такі команди: \n" + commands)
+while True:
+    set = int(input("Введіть індекс необхідної команди: "))
+    if set == 1:
+        write_to_csv(dictionary_data, csv_name)
+    elif set == 2:
+        convert_csv_to_json(csv_name, json_name)
+    elif set == 3:
+        convert_json_csv(dictionary_data ,json_name,csv_name)
+    elif set == 4:
+        convert_csv_to_json_Plutenko(csv_name, json_name)
+    elif set == 5:
+        convert_json_csv_Popov(json_name, csv_name)
+    elif set == 0:
+        print("Завершення...")
+        break
+    else:
+        print("Невідома операція!")
