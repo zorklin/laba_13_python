@@ -104,6 +104,36 @@ def convert_json_csv_Popov(jname, cname):
     except IOError:
         print("Файл {} не вдалося відкрити".format(cname))
 
+# Функція читання файлу csv та перезапису його у json з додаванням даних. Гончарова Дарина
+def convert_csv_to_json_Honcharova(csv_file, json_file):
+    try:
+        with open(csv_file, mode = 'r', encoding='utf-8') as file:
+            output_data = csv.DictReader(file)
+            rows = {row["Name"]: {"Age": row["Age"], "City": row["City"]} for row in output_data}
+    except IOError as e:
+        print(f"Помилка при обробці {csv_file}: {e}")
+    except Exception as e:
+        print(f"Помилка при обробці {csv_file}: {e}")
+
+    while True:
+        temp = input("Додати користувачів?\n1 - Так\n0 - Ні\n")
+        if temp == '1':
+            Name = input("Введіть ім'я особи: ")
+            Age = input("Введіть вік особи: ")
+            City = input("Введіть місто, в якому проживає особа: ")
+            rows[Name] = {"Age": Age, "City": City}
+        elif temp == '0':
+            break
+        else:
+            print("Невірний вибір, спробуйте ще раз.")
+
+    try:
+        with open(json_file, mode = 'w', encoding='utf-8') as file:
+            json.dump(rows, file, ensure_ascii=False, indent=4)
+    except IOError as e:
+        print(f"Помилка при обробці {json_file}: {e}")
+    except Exception as e:
+        print(f"Помилка при обробці {json_file}: {e}")
 
 
 dictionary_data = [
@@ -119,7 +149,8 @@ commands = "1. Записати заготовлені дані до .csv фай
 2. Переписати вміст .csv файлу в .json файл\n\
 3. Переписати вміст .json файлу в .csv файл з додаванням даних\n\
 4. Переписати вміст .csv файлу в .json файл з додаванням даних\n\
-5. Переписати вміст .json файлу в .csv файл"
+5. Переписати вміст .json файлу в .csv файл\n\
+6. Переписати вміст .csv файлу в .json файл з додаванням нових даних."
 
 print("Доступні такі команди: \n" + commands)
 while True:
@@ -134,6 +165,8 @@ while True:
         convert_csv_to_json_Plutenko(csv_name, json_name)
     elif set == 5:
         convert_json_csv_Popov(json_name, csv_name)
+    elif set == 6:
+        convert_csv_to_json_Honcharova(csv_name, json_name)
     elif set == 0:
         print("Завершення...")
         break
